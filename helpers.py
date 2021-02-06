@@ -42,3 +42,32 @@ def datetime_to_str(dt):
     :return: That datetime, as a human-readable string without seconds.
     """
     return datetime.datetime.strftime(dt, "%Y-%m-%d %H:%M")
+
+
+def default_if_empty(value, default_value, return_format=False):
+    """Accept tree variable and return the first if it is not resolved to False,
+       otherwise return the second. 
+       The frist variable could be formated at return by third variable, by default 
+       ther is no formating.
+
+    :param value: variable to be checked if is True
+    :param default_value: variable to be return if first param resolved to False
+    :param return_type: optional argument, function to format value at return 
+    :return: First param if it is True, second if not
+    """
+    if not return_format:
+        return_format = type(value)
+    if value:
+        return return_format(value)
+    else:
+        return default_value
+
+
+def y_to_true(x):
+    """Resolved Y to True and other inputs  to False
+    : param x: 
+    """
+    if x == "Y":
+        return True
+    else:
+        return False
