@@ -39,7 +39,6 @@ class NearEarthObject:
 
         :param info: A dictionary of excess keyword arguments supplied to the constructor.
         """
-
         self.designation = info['pdes']
         self.name = default_if_empty(info['name'], None)
         self.diameter = default_if_empty(info['diameter'], float('nan'), float)
@@ -51,12 +50,10 @@ class NearEarthObject:
     @property
     def fullname(self):
         """Return a representation of the full name of this NEO."""
-
         return self.designation + default_if_empty(self.name, "")
 
     def __str__(self):
         """Return `str(self)`."""
-
         diameter = f"diameter of {self.diameter:.3f}" if not math.isnan(
             self.diameter) else "unknown diameter"
         is_hazardous = 'potentially' if self.hazardous else 'not'
@@ -68,9 +65,7 @@ class NearEarthObject:
                 f"diameter={self.diameter:.3f}, hazardous={self.hazardous!r})")
 
     def serialize(self):
-        """
-        Methods to produce a dictionary containing relevant attributes for CSV or JSON serialization.
-        """
+        """Methods to produce a dictionary containing relevant attributes for CSV or JSON serialization."""
         serialize = {}
         serialize['designation'] = self.designation
         serialize['name'] = self.name
@@ -99,7 +94,6 @@ class CloseApproach:
 
         :param info: A dictionary of excess keyword arguments supplied to the constructor.
         """
-
         self._designation = info['des']
         self.time = default_if_empty(info['cd'], None, cd_to_datetime)
         self.distance = default_if_empty(info['dist'], 0.0, float)
@@ -126,12 +120,10 @@ class CloseApproach:
     @property
     def fullname(self):
         """Return a representation of the full name of this NEO."""
-
         return self._designation + default_if_empty(self.neo, "")
 
     def __str__(self):
         """Return `str(self)`."""
-
         time = f"{self.time_str}" if not self.time else "unkown date"
         return f"A CloseApproach event at {self.time_str}, of {self.fullname} approching Earth at a distance "\
             f"of {self.distance:.2f} au and a velocity of {self.velocity:.2f} km/s."
@@ -142,9 +134,7 @@ class CloseApproach:
                 f"velocity={self.velocity:.2f}, neo={self.neo!r})")
 
     def serialize(self):
-        """
-        Methods to produce a dictionary containing relevant attributes for CSV or JSON serialization.
-        """
+        """Methods to produce a dictionary containing relevant attributes for CSV or JSON serialization."""
         serialize = {}
         serialize['datetime_utc'] = self.time_str
         serialize['distance_au'] = self.distance

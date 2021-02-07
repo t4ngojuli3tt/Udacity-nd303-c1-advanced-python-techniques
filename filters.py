@@ -73,36 +73,73 @@ class AttributeFilter:
         raise UnsupportedCriterionError
 
     def __repr__(self):
+        """Override of magic method __repr__ to make is suitable for the class."""
         return f"{self.__class__.__name__}(op=operator.{self.op.__name__}, value={self.value})"
 
 
 class DateFilter(AttributeFilter):
+    """Concrete subclasses of AttributeFilter to ovveride get method for time attribute."""
+
     @classmethod
     def get(cls, approach):
+        """Override of get method from AttributeFilter.
+
+        :param approach: A `CloseApproach` on which to evaluate this filter.
+        :return: The value of an attribute time formated to be date, comparable to
+        `self.value` via `self.op` from AttributeFilter.
+        """
         return approach.time.date()
 
 
 class DistanceFilter(AttributeFilter):
+    """Concrete subclasses of AttributeFilter to ovveride get method for distance attribute."""
+
     @classmethod
     def get(cls, approach):
+        """Override of get method from AttributeFilter.
+
+        :param approach: A `CloseApproach` on which to evaluate this filter.
+        :return: The value of an attribute distance, comparable to `self.value` via `self.op`from AttributeFilter.
+        """
         return approach.distance
 
 
 class VelocityFilter(AttributeFilter):
+    """Concrete subclasses of AttributeFilter to ovveride get method for velocity attribute."""
+
     @classmethod
     def get(cls, approach):
+        """Override of get method from AttributeFilter.
+
+        :param approach: A `CloseApproach` on which to evaluate this filter.
+        :return: The value of an attribute velocity, comparable to `self.value` via `self.op`from AttributeFilter.
+        """
         return approach.velocity
 
 
 class DiameterFilter(AttributeFilter):
+    """Concrete subclasses of AttributeFilter to ovveride get method for diameter attribute."""
+
     @classmethod
     def get(cls, approach):
+        """Override of get method from AttributeFilter.
+
+        :param approach: A `CloseApproach` on which to evaluate this filter.
+        :return: The value of an attribute diameter, comparable to `self.value` via `self.op`from AttributeFilter.
+        """
         return approach.neo.diameter
 
 
 class HazardousFilter(AttributeFilter):
+    """Concrete subclasses of AttributeFilter to ovveride get method for neo.hazardous attribute."""
+
     @classmethod
     def get(cls, approach):
+        """Override of get method from AttributeFilter.
+
+        :param approach: A `CloseApproach` on which to evaluate this filter.
+        :return: The value of an attribute neo.hazardous, comparable to `self.value` via `self.op`from AttributeFilter.
+        """
         return approach.neo.hazardous
 
 
@@ -170,7 +207,6 @@ def limit(iterator, n=None):
     :param n: The maximum number of values to produce.
     :yield: The first (at most) `n` values from the iterator.
     """
-
     if n == None or n == 0:
         for x in iterator:
             yield x
